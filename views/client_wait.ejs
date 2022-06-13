@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Card_Game</title>
+    <meta name="description" content="Card_Game">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../public/css/client_wait.css">
+</head>
+
+<body>
+    <div id="waiting_screen">
+        <div class="wrapper">
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="satWrap">
+                <div class="sat"></div>
+            </div>
+        </div>
+        <svg>
+            <defs>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                        result="goo"></feColorMatrix>
+                    <feBlend in="SourceGraphic" in2="goo"></feBlend>
+                </filter>
+            </defs>
+        </svg>
+        <p>Wait for player...</p>
+    </div>
+
+</body>
+
+</html>

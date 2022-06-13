@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Card_Game</title>
+    <meta name="description" content="Card_Game">
+    <link rel="stylesheet" href="css/login_reg.css">
+</head>
+
+<body>
+    <section class="forms-section">
+        <div class="forms">
+            <div class="form-wrapper" id="is-active">
+                <button type="button" class="switcher switcher-login">
+                    Login
+                    <span class="underline"></span>
+                </button>
+                <form class="form form-login">
+                    <fieldset>
+                        <legend>Please, enter your email and password for login.</legend>
+                        <div class="input-block">
+                            <label for="login">Login</label>
+                            <input name="login" id="login-login" type="text" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="password">Password</label>
+                            <input name="password" id="login-password" type="password" required>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn-login">Login</button>
+                    <p><a href="remind">Forgot password?</a></p>
+                    <fieldset>
+                        <div id="login-answer"></div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="form-wrapper" id="is-passive">
+                <button type="button" class="switcher switcher-signup">
+                    Sign Up
+                    <span class="underline"></span>
+                </button>
+                <form class="form form-signup">
+                    <fieldset>
+                        <legend>Please, enter your email, password and password confirmation for sign up.</legend>
+                        <div class="input-block">
+                            <label for="login">Login</label>
+                            <input name="login" id="signin-login" type="text" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="password">Password</label>
+                            <input name="password" id="signin-password" type="password" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="email">E-mail</label>
+                            <input name="email" id="email" type="text" required>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn-signup">Continue</button>
+                    <fieldset>
+                        <div id="signin-answer"></div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script>
+        const switchers = [...document.querySelectorAll('.switcher')]
+        switchers.forEach(item => {
+            item.addEventListener('click', function () {
+                switchers.forEach(item => item.parentElement.setAttribute('id', 'is-passive'));
+                this.parentElement.setAttribute('id', 'is-active');
+            });
+        });
+        let form1 = document.getElementById("is-active");
+        let form2 = document.getElementById("is-passive");
+        form1.addEventListener('submit', () => {
+            regSubmit(event, 'login')
+            return false;
+        });
+        form2.addEventListener('submit', () => {
+            regSubmit(event, 'sigin')
+            return false;
+        });
+        async function regSubmit(event, form) {
+            event.preventDefault();
+            let data = {};
+            let login_id, pass_id, answer_id;
+            data.method = form;
+            if (form == 'login') {
+                login_id = "login-login";
+                pass_id = "login-password";
+                answer_id = "login-answer";
+            } else {
+                login_id = "signin-login";
+                pass_id = "signin-password";
+                answer_id = "signin-answer";
+                data.email = document.getElementById('email').value;
+            }
+            data.login = document.getElementById(login_id).value;
+            data.password = document.getElementById(pass_id).value;
+            console.log(JSON.stringify(data));
+            const res = await fetch('/send', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const resDATA = await res.json();
+            if (resDATA.data == true) {
+                window.location.href = '/game'
+            }
+            else {
+                console.log(resDATA.data)
+                document.getElementById(answer_id).innerHTML = resDATA.data;
+            }
+        }
+    </script>
+</body>
+
+</html>

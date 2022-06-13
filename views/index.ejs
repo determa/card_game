@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Card_Game</title>
+    <meta name="description" content="Card_Game">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/client_wait.css">
+</head>
+
+<body>
+    <div id="waiting_screen">
+        <div class="wrapper">
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="bubbleWrap">
+                <div class="bubble"></div>
+            </div>
+            <div class="satWrap">
+                <div class="sat"></div>
+            </div>
+        </div>
+        <svg>
+            <defs>
+                <filter id="goo">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+                    <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                        result="goo"></feColorMatrix>
+                    <feBlend in="SourceGraphic" in2="goo"></feBlend>
+                </filter>
+            </defs>
+        </svg>
+        <p>Wait for player...</p>
+    </div>
+    <div class="board">
+        <div class="users">
+            <div class="evil">
+                <div class="user_img enemy_hlebalo">
+                    <img src="img/Bodya.jpg" alt="evil">
+                    <span>Bodddya</span>
+                </div>
+                <div class="user_info">
+                    <span class="health" id="evil_health">20♥</span>
+                </div>
+            </div>
+            <div class="good">
+                <div class="user_img">
+                    <img src="img/Edd.jpg" alt="evil">
+                    <span>Eddya</span>
+                </div>
+                <div class="user_info">
+                    <span class="health" id="player_health">20♥</span>
+                    <span class="health" id="player_cost">1/1$</span>
+                </div>
+            </div>
+        </div>
+        <div class="game_field">
+            <div id="evil_field">
+                <div class="container evil_field"></div>
+            </div>
+            <div class="board_field">
+                <div class="container enemy_deck" id="enemy_deck"></div>
+                <div class="container board_deck" id="board_deck"></div>
+            </div>
+            <div id="good_field">
+                <div class="container good_field"></div>
+            </div>
+        </div>
+        <div class="game_deck">
+            <div class="evil_deck">
+                <div class="card-front">
+                    <div class="layer">
+                        <span id="bad_deck_value">20</span>
+                        <div class="corner"></div>
+                        <div class="corner"></div>
+                        <div class="corner"></div>
+                        <div class="corner"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="game_timer">
+                <span id="timer">00:00</span>
+                <div class="turn_end" id="stop_timer">end turn</div>
+            </div>
+            <div class="good_deck">
+                <div class="card-front">
+                    <div class="layer">
+                        <span id="good_deck_value">20</span>
+                        <div class="corner"></div>
+                        <div class="corner"></div>
+                        <div class="corner"></div>
+                        <div class="corner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/socket.js"></script>
+
+</body>
+
+</html>
