@@ -165,6 +165,11 @@ socket.on('connect', () => {
 
 
 socket.on('startGame', (data) => {
+    console.log(data);
+    document.getElementById('evil_image').setAttribute('src', `img/${data.enemy_img}`);
+    document.getElementById('good_image').setAttribute('src', `img/${data.my_img}`);
+    document.getElementById('enemy_name').innerHTML = data.enemy_name;
+    document.getElementById('my_name').innerHTML = data.my_name;
     opponent = data.id;
     cards = data.cards;
     let elem = document.getElementById("waiting_screen");

@@ -1,5 +1,9 @@
 import mysql from 'mysql2';
 import nodemailer from 'nodemailer';
+import path from 'path';
+import fs from 'fs';
+
+const __dirname = path.resolve();
 
 import {
     getenv
@@ -51,20 +55,20 @@ async function init() {
     await connection.query('USE card_game;').catch((err) => {
         if (err) console.log(err);
     });
-    await connection.query('CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT, login VARCHAR(50) NOT NULL UNIQUE, password VARCHAR(50) NOT NULL, email VARCHAR(50) NOT NULL UNIQUE);').catch((err) => {
+    await connection.query('CREATE TABLE IF NOT EXISTS users (id INT PRIMARY KEY AUTO_INCREMENT, login VARCHAR(50) NOT NULL UNIQUE, password VARCHAR(50) NOT NULL, email VARCHAR(50) NOT NULL UNIQUE, img VARCHAR(50) NOT NULL);').catch((err) => {
         if (err) console.log(err);
     });
-    // await connection.query('CREATE TABLE IF NOT EXISTS card')
 };
 init();
 
-async function signup(login, password, email) {
-    let info = { login: login, password: password, email: email };
+async function signup(login, password, email, avatar) {
+    let info = { login: login, password: password, email: email, img: avatar };
     return await connection.query('INSERT INTO users SET ?', info)
         .then(() => {
             return '<p style="color: green;">Registration successful.</p>';
         })
         .catch((err) => {
+            fs.unlinkSync(__dirname + `/public/img/${avatar}`);
             if (err.code == 'ER_DUP_ENTRY') {
                 return '<p style="color: red;">This login or email is already in use. Try again.</p>';
             }
@@ -108,4 +112,11 @@ async function pass_send(email) {
         });
 }
 
-export { pass_send, login, signup, cards };
+async function get_img(login) {
+    return await connection.query(`SELECT img FROM users WHERE login = ?;`, login)
+        .then(async ([rows]) => {
+            return rows[0].img;
+        })
+}
+
+export { pass_send, login, signup, cards, get_img };
