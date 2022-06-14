@@ -51,7 +51,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-.env
+# .env
 
 .DS_Store
 ._.DS_Store
